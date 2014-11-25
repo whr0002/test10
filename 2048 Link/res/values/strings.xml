@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Daily 2048 Link</string>
+    <string name="bannerID">ca-app-pub-6718707824713684/3990263055</string>
+    <string name="interstitialID">ca-app-pub-6718707824713684/6943729450</string>
+    
+    <string name="time">Time used：$ seconds</string>
+    <string name="quit">Quit</string>
+    <string name="sure_quit">Quit the game？</string>
+    <string name="alert_dialog_ok">Yes</string>
+    <string name="alert_dialog_cancel">No</string>
+    <string name="win">Congratulations</string>
+    <string name="lose">Game Over</string>
+    <string name="pause">Paused</string>
+    <string name="go">Click to continue</string>
+    <string name="retry">Click to retry</string>
+    <string name="instruction">Instruction</string>
+    <string name="back">Click to go back</string>
+    <string name="explaination">Link the same numbers with less than 4 lines</string>
+</resources>

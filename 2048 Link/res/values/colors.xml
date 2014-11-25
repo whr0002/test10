@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="emphasis">#31b6e7</color>
+    <color name="bg_gray">#cecbce</color>
+    <color name="my_custom_color">#ff1a557c</color>
+    <color name="grey">#808080</color>
+    <color name="holo_blue_light">#ff33b5e5</color>
+    <color name="transparent">#00000000</color>
+    <color name="red">#FF0000</color>
+    <color name="silver">#C0C0C0</color>
+    <color name="white">#fafafa</color>
+    <color name="lightGrey">#20dcd9d2</color>
+    <color name="popularRed">#FF0000</color>
+    <color name="popularOrange">#FF9900</color>
+    <color name="popularbluegreen">#097054</color>
+    <color name="popularlightblue">#6599FF</color>
+    <color name="popularlightblueviolet">#443266</color>
+    <color name="popularperiwinklegrey">#C3C3E5</color>
+    <color name="popularazure">#336699</color>
+    <color name="popularlemon">#FFDE00</color>
+    <color name="grey_grey">#dcd9d2</color>
+    <color name="dark_brown">#cc6906</color>
+    <color name="brown">#ff9c00</color>
+    
+    <color name="trans">#85222222</color>
+</resources>
