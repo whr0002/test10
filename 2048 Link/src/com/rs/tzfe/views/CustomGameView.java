@@ -1,11 +1,11 @@
-package com.rs.link.views;
+package com.rs.tzfe.views;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import com.rs.twozerofoureight.R;
-import com.rs.twozerofoureight.SoundPlay;
+import com.rs.tzfe.R;
+import com.rs.tzfe.SoundPlay;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -16,7 +16,7 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
-public class GameView extends BoardView {
+public class CustomGameView extends CustomBoardView {
 
 	private static final int REFRESH_VIEW = 1;
 
@@ -54,9 +54,9 @@ public class GameView extends BoardView {
 
 	private List<Point> path = new ArrayList<Point>();
 
-	public GameView(Context context, AttributeSet atts) {
+	public CustomGameView(Context context, AttributeSet atts) {
 		super(context, atts);
-		player = MediaPlayer.create(context, R.raw.back2new);
+		player = MediaPlayer.create(context, R.raw.bg1);
 		player.setLooping(true);// …Ë÷√—≠ª∑≤•∑≈
 	}
 
@@ -87,7 +87,7 @@ public class GameView extends BoardView {
 
 		refreshTime = new RefreshTime();
 		refreshTime.start();
-		GameView.this.invalidate();
+		CustomGameView.this.invalidate();
 	}
 
 	public void startNextPlay() {
@@ -99,13 +99,13 @@ public class GameView extends BoardView {
 	public static void initSound(Context context) {
 		soundPlay = new SoundPlay();
 		soundPlay.initSounds(context);
-		soundPlay.loadSfx(context, R.raw.choose, ID_SOUND_CHOOSE);
-		soundPlay.loadSfx(context, R.raw.disappear1, ID_SOUND_DISAPEAR);
-		soundPlay.loadSfx(context, R.raw.win, ID_SOUND_WIN);
-		soundPlay.loadSfx(context, R.raw.lose, ID_SOUND_LOSE);
-		soundPlay.loadSfx(context, R.raw.item1, ID_SOUND_REFRESH);
-		soundPlay.loadSfx(context, R.raw.item2, ID_SOUND_TIP);
-		soundPlay.loadSfx(context, R.raw.alarm, ID_SOUND_ERROR);
+		soundPlay.loadSfx(context, R.raw.c, ID_SOUND_CHOOSE);
+		soundPlay.loadSfx(context, R.raw.d, ID_SOUND_DISAPEAR);
+		soundPlay.loadSfx(context, R.raw.w, ID_SOUND_WIN);
+		soundPlay.loadSfx(context, R.raw.l, ID_SOUND_LOSE);
+		soundPlay.loadSfx(context, R.raw.i1, ID_SOUND_REFRESH);
+		soundPlay.loadSfx(context, R.raw.i2, ID_SOUND_TIP);
+		soundPlay.loadSfx(context, R.raw.al, ID_SOUND_ERROR);
 	}
 
 	public void setOnTimerListener(OnTimerListener timerListener) {
@@ -145,7 +145,7 @@ public class GameView extends BoardView {
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
 			if (msg.what == REFRESH_VIEW) {
-				GameView.this.invalidate();
+				CustomGameView.this.invalidate();
 				if (win()) {
 					setMode(WIN);
 					soundPlay.play(ID_SOUND_WIN, 0);
@@ -212,12 +212,12 @@ public class GameView extends BoardView {
 					selected.clear();
 					selected.add(p);
 					soundPlay.play(ID_SOUND_CHOOSE, 0);
-					GameView.this.invalidate();
+					CustomGameView.this.invalidate();
 				}
 			} else {
 				selected.add(p);
 				soundPlay.play(ID_SOUND_CHOOSE, 0);
-				GameView.this.invalidate();
+				CustomGameView.this.invalidate();
 			}
 		}
 		return super.onTouchEvent(event);
@@ -258,7 +258,7 @@ public class GameView extends BoardView {
 		if (die()) {
 			change();
 		}
-		GameView.this.invalidate();
+		CustomGameView.this.invalidate();
 	}
 
 	public void setMode(int stateMode) {

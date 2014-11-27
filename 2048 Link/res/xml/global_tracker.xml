@@ -12,6 +12,6 @@
 <bool name="ga_dryRun">false</bool>
 
 <!-- The screen names that will appear in reports -->
-<string name="com.rs.twozerofoureight.WelActivity">Global Activity</string>
+<string name="com.rs.tzfe.MainActivity">Global Activity</string>
 </resources>
 

@@ -92,7 +92,8 @@
 		    	android:paddingTop="5dip"
 		    	android:paddingLeft="10dip"
 		    	android:paddingRight="15dip"
-		    	android:paddingBottom="10dip"/>
+		    	android:paddingBottom="10dip"
+		    	android:progressDrawable="@drawable/custom_progress_bar"/>
 		    
 		    <ImageView
 	   			android:id="@+id/clock"
@@ -224,7 +225,7 @@
 	    
     </LinearLayout>
    	
-    <com.rs.link.views.GameView
+    <com.rs.tzfe.views.CustomGameView
     	android:layout_width="wrap_content" 
     	android:layout_height="wrap_content" 
     	android:id="@+id/game_view"

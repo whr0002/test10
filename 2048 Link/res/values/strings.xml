@@ -4,6 +4,8 @@
     <string name="app_name">Daily 2048 Link</string>
     <string name="bannerID">ca-app-pub-6718707824713684/3990263055</string>
     <string name="interstitialID">ca-app-pub-6718707824713684/6943729450</string>
+    <string name="appId">546d8a17c909a67fc3027f1d</string>
+    <string name="appSignature">a0261572c48c519e3b8a462afbc176baf8b322d0</string>
     
     <string name="time">Time used：$ seconds</string>
     <string name="quit">Quit</string>

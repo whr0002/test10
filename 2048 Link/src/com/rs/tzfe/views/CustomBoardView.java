@@ -1,9 +1,9 @@
-package com.rs.link.views;
+package com.rs.tzfe.views;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.rs.twozerofoureight.R;
+import com.rs.tzfe.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,7 +22,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 
-public class BoardView extends View {
+public class CustomBoardView extends View {
 
 	/**
 	 * xCount x轴方向的图标数+1
@@ -69,7 +69,7 @@ public class BoardView extends View {
 	private Path mPath;
 	private float iconSizeF;
 
-	public BoardView(Context context, AttributeSet atts) {
+	public CustomBoardView(Context context, AttributeSet atts) {
 		super(context, atts);
 
 		calIconSize();
@@ -239,7 +239,7 @@ public class BoardView extends View {
 						+ size, animPoint2.y + size, animPoint2.x + iconSize
 						- size, animPoint2.y + iconSize - size), null);
 
-				size += 3;
+				size += iconSize/30;
 				invalidate();
 				// invalidate(new Rect(animPoint1.x, animPoint1.y, animPoint1.x
 				// + iconSize

@@ -1,4 +1,4 @@
-package com.rs.twozerofoureight;
+package com.rs.tzfe;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -33,12 +33,12 @@ import com.google.android.gms.games.leaderboard.LeaderboardScore;
 import com.google.android.gms.games.leaderboard.LeaderboardVariant;
 import com.google.android.gms.games.leaderboard.Leaderboards.LoadPlayerScoreResult;
 import com.google.example.games.basegameutils.BaseGameActivity;
-import com.rs.link.views.GameView;
-import com.rs.link.views.OnStateListener;
-import com.rs.link.views.OnTimerListener;
-import com.rs.link.views.OnToolsChangeListener;
+import com.rs.tzfe.views.CustomGameView;
+import com.rs.tzfe.views.OnStateListener;
+import com.rs.tzfe.views.OnTimerListener;
+import com.rs.tzfe.views.OnToolsChangeListener;
 
-public class WelActivity extends BaseGameActivity implements OnClickListener,
+public class MainActivity extends BaseGameActivity implements OnClickListener,
 		OnTimerListener, OnStateListener, OnToolsChangeListener {
 
 	private ImageButton btnPlay;
@@ -55,7 +55,7 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 	private ImageButton btnPause;
 
 	private ImageView imgTitle;
-	private GameView gameView;
+	private CustomGameView gameView;
 	private ProgressBar progress;
 	private ImageView clock;
 	private TextView textRefreshNum;
@@ -164,7 +164,7 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 		btnSound = (ImageButton) findViewById(R.id.sound_btn);
 
 		imgTitle = (ImageView) findViewById(R.id.title_img);
-		gameView = (GameView) findViewById(R.id.game_view);
+		gameView = (CustomGameView) findViewById(R.id.game_view);
 		clock = (ImageView) findViewById(R.id.clock);
 		progress = (ProgressBar) findViewById(R.id.timer);
 		textRefreshNum = (TextView) findViewById(R.id.text_refresh_num);
@@ -205,7 +205,7 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 		gameView.setOnTimerListener(this);
 		gameView.setOnStateListener(this);
 		gameView.setOnToolsChangedListener(this);
-		GameView.initSound(this);
+		CustomGameView.initSound(this);
 
 		// 获得声音设备和设备音量
 		soundManager = (AudioManager) this
@@ -250,6 +250,7 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 		currentView = 0;
 		currentState = -1;
 		// GameView.soundPlay.play(GameView.ID_SOUND_BACK2BG, -1);
+		mHelper.setMaxAutoSignInAttempts(1);
 	}
 
 	@Override
@@ -342,9 +343,9 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 
 	private void showExample() {
 
-		gameState.setText(WelActivity.this.getResources().getString(
+		gameState.setText(MainActivity.this.getResources().getString(
 				R.string.instruction));
-		continue_to.setText(WelActivity.this.getResources().getString(
+		continue_to.setText(MainActivity.this.getResources().getString(
 				R.string.back));
 
 		toggleHomeBtns();
@@ -355,12 +356,12 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 		stateLayout.startAnimation(bounce_in);
 		soundLayout.startAnimation(slideUp);
 		soundLayout.setVisibility(View.GONE);
-		currentState = GameView.HOME;
+		currentState = CustomGameView.HOME;
 
 	}
 
 	private void openRateIntent() {
-		String packageName = "com.rs.link";
+		String packageName = "com.rs.tzfe";
 		Intent rateIntent = new Intent(Intent.ACTION_VIEW);
 		// Try Google play
 		rateIntent.setData(Uri.parse("market://details?id=" + packageName));
@@ -396,14 +397,17 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 		if (mInterstitial != null)
 			mInterstitial.loadAd(adRequest);
 		stateLayout.setVisibility(View.GONE);
-		if (currentState == GameView.WIN) {
+		if (currentState == CustomGameView.WIN) {
 			progress.setMax(gameView.getTotalTime() - 10);
 			gameView.startNextPlay();
-		} else if (currentState == GameView.LOSE) {
+			timeUsed.setVisibility(View.GONE);
+			
+		} else if (currentState == CustomGameView.LOSE) {
 			gameView.startPlay();
-		} else if (currentState == GameView.PAUSE) {
+			timeUsed.setVisibility(View.GONE);
+		} else if (currentState == CustomGameView.PAUSE) {
 			resumeGame();
-		} else if (currentState == GameView.HOME) {
+		} else if (currentState == CustomGameView.HOME) {
 			stateLayout.startAnimation(slideUp);
 			stateLayout.setVisibility(View.GONE);
 			example.setVisibility(View.GONE);
@@ -671,7 +675,7 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 		// isAdShowed = false;
 		// }
 		if (stateLayout.getVisibility() == View.GONE) {
-			gameView.setMode(GameView.PAUSE);
+			gameView.setMode(CustomGameView.PAUSE);
 		} else {
 			// disable sound
 			gameView.player.pause();
@@ -691,7 +695,7 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 		if (currentView == 0) {
 			player.start();
 		} else {
-			if (currentState == GameView.WIN || currentState == GameView.LOSE) {
+			if (currentState == CustomGameView.WIN || currentState == CustomGameView.LOSE) {
 				// Current state is win or lose and activity is coming back from
 				// outside
 				// Resume sound
@@ -709,7 +713,7 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 		}
 
 		soundManager.setStreamVolume(AudioManager.STREAM_MUSIC, musicVolumn, 0);
-		gameView.setMode(GameView.QUIT);
+		gameView.setMode(CustomGameView.QUIT);
 		super.onDestroy();
 
 	}
@@ -756,7 +760,8 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 			}
 		} else {
 			// get score from local
-			return sp.getInt("best", 9999);
+			myBest = sp.getInt("best", 9999);
+			return (int)myBest;
 		}
 		return 9999;
 	}
@@ -804,16 +809,16 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 		});
 
 		switch (StateMode) {
-		case GameView.WIN:
+		case CustomGameView.WIN:
 			// handler.sendEmptyMessage(0);
 			this.runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
 					showInterstitial();
 					// stuff that updates ui
-					gameState.setText(WelActivity.this.getResources()
+					gameState.setText(MainActivity.this.getResources()
 							.getString(R.string.win));
-					continue_to.setText(WelActivity.this.getResources()
+					continue_to.setText(MainActivity.this.getResources()
 							.getString(R.string.go));
 					timeUsed.setVisibility(View.VISIBLE);
 					stateLayout.setVisibility(View.VISIBLE);
@@ -825,16 +830,16 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 			});
 
 			break;
-		case GameView.LOSE:
+		case CustomGameView.LOSE:
 			// handler.sendEmptyMessage(1);
 			this.runOnUiThread(new Runnable() {
 				@Override
 				public void run() {
 					showInterstitial();
 					// stuff that updates ui
-					gameState.setText(WelActivity.this.getResources()
+					gameState.setText(MainActivity.this.getResources()
 							.getString(R.string.lose));
-					continue_to.setText(WelActivity.this.getResources()
+					continue_to.setText(MainActivity.this.getResources()
 							.getString(R.string.retry));
 					timeUsed.setVisibility(View.VISIBLE);
 					stateLayout.setVisibility(View.VISIBLE);
@@ -842,21 +847,21 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 			});
 
 			break;
-		case GameView.PAUSE:
+		case CustomGameView.PAUSE:
 			if (currentView == 0) {
 				player.pause();
 			} else if (currentView == 1) {
 				gameView.player.pause();
 				gameView.stopTimer();
-				gameState.setText(WelActivity.this.getResources().getString(
+				gameState.setText(MainActivity.this.getResources().getString(
 						R.string.pause));
-				continue_to.setText(WelActivity.this.getResources().getString(
+				continue_to.setText(MainActivity.this.getResources().getString(
 						R.string.go));
 				stateLayout.setVisibility(View.VISIBLE);
 				// stateLayout.startAnimation(bounce_in);
 			}
 			break;
-		case GameView.QUIT:
+		case CustomGameView.QUIT:
 			player.release();
 			gameView.player.release();
 			gameView.stopTimer();
@@ -877,12 +882,12 @@ public class WelActivity extends BaseGameActivity implements OnClickListener,
 		if (currentView == 1) {
 			gameView.player.pause();
 			gameView.stopTimer();
-			gameState.setText(WelActivity.this.getResources().getString(
+			gameState.setText(MainActivity.this.getResources().getString(
 					R.string.pause));
-			continue_to.setText(WelActivity.this.getResources().getString(
+			continue_to.setText(MainActivity.this.getResources().getString(
 					R.string.go));
 			stateLayout.setVisibility(View.VISIBLE);
-			currentState = GameView.PAUSE;
+			currentState = CustomGameView.PAUSE;
 			// stateLayout.startAnimation(bounce_in);
 		}
 

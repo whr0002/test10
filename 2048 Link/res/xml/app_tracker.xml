@@ -15,13 +15,13 @@
 <bool name="ga_reportUncaughtExceptions">true</bool>
 
 <!-- How long a session exists before giving up -->
-<integer name="ga_sessionTimeout">-1</integer>
+<integer name="ga_sessionTimeout">60</integer>
 
 <!-- If ga_autoActivityTracking is enabled, an alternate screen name can be specified to
 substitute for the full length canonical Activity name in screen view hit. In order to
 specify an alternate screen name use an <screenName> element, with the name attribute
 specifying the canonical name, and the value the alias to use instead. -->
-<screenName name="com.rs.twozerofoureight.WelActivity">2048 Link Activity</screenName>
+<screenName name="com.rs.tzfe.MainActivity">2048 Link Activity</screenName>
 
 </resources>
 
