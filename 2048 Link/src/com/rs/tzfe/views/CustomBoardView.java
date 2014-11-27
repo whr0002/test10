@@ -239,7 +239,7 @@ public class CustomBoardView extends View {
 						+ size, animPoint2.y + size, animPoint2.x + iconSize
 						- size, animPoint2.y + iconSize - size), null);
 
-				size += 3;
+				size += 5;
 				invalidate();
 				// invalidate(new Rect(animPoint1.x, animPoint1.y, animPoint1.x
 				// + iconSize
